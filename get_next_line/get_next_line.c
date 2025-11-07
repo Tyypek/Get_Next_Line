@@ -6,7 +6,7 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:37:14 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/06 16:47:37 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/07 17:18:54 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ char	*get_rest(char **stash)
 	if (!nptr)
 	{
 		if (!*stash || **stash == '\0')
+		{
+			free(*stash);
+			*stash = NULL;
 			return (NULL);
+		}
 		str = ft_strdup(*stash);
 		free(*stash);
 		*stash = NULL;
@@ -73,7 +77,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*result;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
@@ -89,6 +93,8 @@ char	*get_next_line(int fd)
 	}
 	stash = get_lines(fd, stash, buf);
 	result = get_rest(&stash);
+	if (result == NULL)
+		stash = NULL;
 	free(buf);
 	return (result);
 }
