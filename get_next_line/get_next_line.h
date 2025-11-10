@@ -6,7 +6,7 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:38:19 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/06 16:31:46 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/10 16:35:08 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
-
+char	*ft_strdup(const char *s);
 #endif
