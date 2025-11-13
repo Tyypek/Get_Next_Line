@@ -6,7 +6,7 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:38:19 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/11 16:35:36 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/13 17:35:59 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 256
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);

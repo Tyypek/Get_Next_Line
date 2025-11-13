@@ -6,7 +6,7 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:37:56 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/11 14:11:34 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/13 18:20:21 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ char	*ft_strchr(const char *str, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)str);
 	return (NULL);
+}
+char	*ft_strdup(const char *s)
+{
+	char	*str;
+	int		size;
+
+	if (!s)
+		return (NULL);
+	size = ft_strlen(s) + 1;
+	str = malloc(size);
+	if (str == NULL)
+		return (NULL);
+	ft_strlcpy(str, s, size);
+	return (str);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -95,6 +109,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	i = 0;
