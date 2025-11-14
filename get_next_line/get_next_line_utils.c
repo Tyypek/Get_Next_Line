@@ -6,13 +6,13 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:37:56 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/14 17:01:03 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/14 17:07:28 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -88,7 +88,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	char	*new_str;
 	size_t	i;
@@ -96,19 +96,18 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1 && !s2)
-		return (NULL);
-	else if (!s1)
-		return (NULL);
-	else if (!s2)
-		return (NULL);
+	
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		return (ft_strdup(s1));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	i = 0;
 	j = 0;
 	new_str = malloc(len1 + len2 + 1);
 	if (!new_str)
-		return (NULL);
+		return (free(s1), NULL);
 	while (i < len1)
 	{
 		new_str[i] = s1[i];
@@ -117,6 +116,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (j < len2)
 		new_str[i++] = s2[j++];
 	new_str[i] = '\0';
+	free(s1);
 	return (new_str);
 }
 

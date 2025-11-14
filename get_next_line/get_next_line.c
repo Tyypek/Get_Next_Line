@@ -6,7 +6,7 @@
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:37:14 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/14 16:49:51 by onoras           ###   ########.fr       */
+/*   Updated: 2025/11/14 17:06:31 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = get_lines(fd, stash, buf);
 	if (!stash)
-		return (free(buf), printf("breakpoint End buf is: |%s| stash is: %s\n",buf , stash), NULL);
+		return (free(buf), NULL);
 	printf("breakpoint2\n");
 	result = get_rest(&stash);
 	if (stash && *stash == '\0')
@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 	}
 	return (free(buf), result);
 }
-
+//printf("breakpoint End buf is: |%s| stash is: %s\n",buf , stash),
 // int	main(void)
 // {
 // 	int		fd;
