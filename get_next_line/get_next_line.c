@@ -5,17 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 12:37:14 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/14 17:06:31 by onoras           ###   ########.fr       */
+/*   Created: 2025/11/17 10:20:38 by onoras            #+#    #+#             */
+/*   Updated: 2025/11/17 17:13:19 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 char	*ft_strdup(const char *s)
@@ -39,10 +34,12 @@ char	*get_rest(char **stash)
 	char	*nptr;
 	char	*temp;
 
+	if (!*stash)
+		return (NULL);
 	nptr = ft_strchr(*stash, '\n');
 	if (!nptr)
 	{
-		if (**stash == '\0')
+		if (ft_strlen(*stash) == 0)
 			return (free(*stash), *stash = NULL, NULL);
 		str = ft_strdup(*stash);
 		return (free(*stash), *stash = NULL, str);
@@ -58,59 +55,48 @@ char	*get_rest(char **stash)
 	return (str);
 }
 
-char	*get_lines(int fd, char *stash, char *buf)
+char	*get_lines(int fd, char **stash, char *buf)
 {
 	ssize_t	temp;
 	char	*cpystash;
 
-	if (!stash)
-		stash = ft_strdup("");
-	if (!stash)
-		return (NULL);
-	while (!ft_strchr(stash, '\n'))
+	temp = 1;
+	while (!ft_strchr(*stash, '\n') && temp > 0)
 	{
 		temp = read(fd, buf, BUFFER_SIZE);
-		if (temp == 0)
-			break ;
 		if (temp == -1)
-			return (free(stash), stash = NULL, NULL);
+			return (free(*stash), *stash = NULL, NULL);
 		buf[temp] = '\0';
-		cpystash = stash;
-		if (stash && buf)
-			stash = ft_strjoin(stash, buf);
-		if (!stash)
-			return (free(cpystash), NULL);
+		cpystash = *stash;
+		*stash = ft_strjoin(*stash, buf);
 		free(cpystash);
+		if (!*stash)
+			return (NULL);
 	}
-	return (stash);
+	return (*stash);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buf;
+	static char	buf[BUFFER_SIZE + 1];
 	static char	*stash;
 	char		*result;
 
-
-	result = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
-		return (NULL);
-	stash = get_lines(fd, stash, buf);
+	stash = get_lines(fd, &stash, buf);
 	if (!stash)
-		return (free(buf), NULL);
-	printf("breakpoint2\n");
+		return (NULL);
 	result = get_rest(&stash);
-	if (stash && *stash == '\0')
+	if (ft_strlen(stash) == 0)
 	{
 		free(stash);
 		stash = NULL;
 	}
-	return (free(buf), result);
+	return (result);
 }
-//printf("breakpoint End buf is: |%s| stash is: %s\n",buf , stash),
+
+// #include <fcntl.h>
 // int	main(void)
 // {
 // 	int		fd;
@@ -118,7 +104,7 @@ char	*get_next_line(int fd)
 // 	int		i;
 
 // 	i = 1;
-// 	fd = open("multiple_nl.txt", O_RDONLY);
+// 	fd = open("test.txt", O_RDONLY);
 // 	if (fd < 0)
 // 	{
 // 		perror("open");

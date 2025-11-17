@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: onoras <onoras@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 12:38:19 by onoras            #+#    #+#             */
-/*   Updated: 2025/11/14 17:06:57 by onoras           ###   ########.fr       */
+/*   Created: 2025/11/17 10:18:33 by onoras            #+#    #+#             */
+/*   Updated: 2025/11/17 16:24:00 by onoras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 256
 # endif
 
 char	*get_next_line(int fd);
@@ -25,6 +25,7 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-char	*ft_strjoin(char *s1, const char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s);
+
 #endif
